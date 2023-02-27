@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MapGeneration : MonoBehaviour
+{
+
+    [SerializeField] private GameObject wallPrefab;
+    [SerializeField] private GameObject floorPrefab;
+    [SerializeField] private MapGenerationSettings mapSettings;
+    
+    
+    private void Start()
+    {
+        BuildMap();
+    }
+
+    private void BuildMap()
+    {
+        BuildFloor();
+
+        BuildWalls();
+    }
+
+    private void BuildFloor()
+    {
+        GameObject floor = Instantiate(floorPrefab, Vector3.zero, Quaternion.identity, transform);
+        floor.transform.localScale = new Vector3(mapSettings.width, 1f, mapSettings.length);
+        floor.name = "Floor";
+    }
+
+    private void BuildWalls()
+    {
+        GameObject emptyGo = new GameObject();
+        GameObject wallsContainer = Instantiate(emptyGo, transform);
+        wallsContainer.name = "Walls";
+
+        float wallYPos = mapSettings.wallHeight / 2 + 0.5f;
+
+        GameObject wall1 = Instantiate(wallPrefab,
+            new Vector3((mapSettings.width + mapSettings.wallWidth) / 2, wallYPos, 0), Quaternion.identity,
+            wallsContainer.transform);
+        wall1.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length);
+        wall1.name = "Wall1";
+
+        GameObject wall2 = Instantiate(wallPrefab,
+            new Vector3(-(mapSettings.width + mapSettings.wallWidth) / 2, wallYPos, 0), Quaternion.identity,
+            wallsContainer.transform);
+        wall2.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length);
+        wall2.name = "Wall2";
+
+        GameObject wall3 = Instantiate(wallPrefab,
+            new Vector3(0, wallYPos, (mapSettings.length + mapSettings.wallWidth) / 2), Quaternion.identity,
+            wallsContainer.transform);
+        wall3.transform.localScale = new Vector3(mapSettings.width, mapSettings.wallHeight, mapSettings.wallWidth);
+        wall3.name = "Wall3";
+
+        GameObject wall4 = Instantiate(wallPrefab,
+            new Vector3(0, wallYPos, -(mapSettings.length + mapSettings.wallWidth) / 2), Quaternion.identity,
+            wallsContainer.transform);
+        wall4.transform.localScale = new Vector3(mapSettings.width, mapSettings.wallHeight, mapSettings.wallWidth);
+        wall4.name = "Wall4";
+    }
+}
