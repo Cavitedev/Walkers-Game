@@ -13,6 +13,8 @@ public class MapGeneration : MonoBehaviour
     private void Start()
     {
         BuildMap();
+
+        PlaceCamera();
     }
 
     private void BuildMap()
@@ -60,5 +62,13 @@ public class MapGeneration : MonoBehaviour
             wallsContainer.transform);
         wall4.transform.localScale = new Vector3(mapSettings.width, mapSettings.wallHeight, mapSettings.wallWidth);
         wall4.name = "Wall4";
+    }
+
+    private void PlaceCamera()
+    {
+        Camera mainCamera = Camera.main;
+        mainCamera.transform.position = new Vector3(0, mapSettings.width / 2 + 2f, -mapSettings.length / 2);
+        mainCamera.transform.rotation =
+            Quaternion.LookRotation(new Vector3(0,0, -2) - mainCamera.transform.position, Vector3.up);
     }
 }
