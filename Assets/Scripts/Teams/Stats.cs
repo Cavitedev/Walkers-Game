@@ -5,10 +5,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class PlayerStats : MonoBehaviour
+public class Stats : MonoBehaviour
 {
     
     public int goal;
+    
+    
+    [SerializeField, TagSelector] string enemyMinionTag;
+    
     
     public delegate void CountUpdate(int hp);
     public CountUpdate OnCountUpdate;
@@ -24,11 +28,11 @@ public class PlayerStats : MonoBehaviour
         set
         {
             _count = value;
-            OnCountUpdate(value);
+            OnCountUpdate?.Invoke(value);
 
             if (_count >= goal)
             {
-                OnWin();
+                OnWin?.Invoke();
             }
             
         }
@@ -47,11 +51,11 @@ public class PlayerStats : MonoBehaviour
         set
         {
             _hp = value;
-            OnHpUpdate(value);
+            OnHpUpdate?.Invoke(value);
 
             if (_hp <= 0)
             {
-                OnDie.Invoke();
+                OnDie?.Invoke();
             }
         }
     }
@@ -65,8 +69,7 @@ public class PlayerStats : MonoBehaviour
         Count = 0;
         Hp = 3;
     }
-
-
+    
     void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject.CompareTag ("Profit Object"))
@@ -78,7 +81,7 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag ("Minion Enemigo"))
+        if (other.gameObject.CompareTag (enemyMinionTag))
         {
             Hp = Hp - 1;
         }

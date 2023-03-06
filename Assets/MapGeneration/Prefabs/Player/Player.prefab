@@ -142,3 +142,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: 5
+  enemyMinionTag: Enemy Minion

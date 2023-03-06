@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class Timer : MonoBehaviour
+public class TimerUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+
 
     float time = 0f;
     public TMP_Text timerText;

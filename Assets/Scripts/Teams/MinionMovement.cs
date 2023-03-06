@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class MinionMovement : MonoBehaviour {
 
-    public float rango = 1f;
+    [FormerlySerializedAs("rango")] public float range = 1f;
 
     public float speed = 20;
 
@@ -16,7 +17,7 @@ public class MinionMovement : MonoBehaviour {
         initial = Time.time;
         time = initial;
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(Random.Range(-rango,rango),0,Random.Range(-rango,rango));
+        rb.AddForce(Random.Range(-range,range),0,Random.Range(-range,range));
         //transform.position = new Vector3(0f,0.5f,2f);
     }
 
@@ -28,7 +29,7 @@ public class MinionMovement : MonoBehaviour {
         if (update > 0.05f){
             initial = Time.time;
             time = initial;
-            Vector3 movement = new Vector3 (Random.Range(-rango,rango),0,Random.Range(-rango,rango));
+            Vector3 movement = new Vector3 (Random.Range(-range,range),0,Random.Range(-range,range));
             rb.AddForce(movement * speed);
         }
     }

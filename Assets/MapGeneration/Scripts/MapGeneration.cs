@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class MapGeneration : MonoBehaviour
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject floorPrefab;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private MapGenerationSettings mapSettings;
-    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private TeamUI playerUI;
+    [SerializeField] private TeamUI enemyUI;
     
 
     private GameObject _player;
@@ -20,6 +23,8 @@ public class MapGeneration : MonoBehaviour
         BuildMap();
 
         BuildPlayer();
+        
+        BuildEnemy();
         
         PlaceCamera();
     }
@@ -74,14 +79,21 @@ public class MapGeneration : MonoBehaviour
     private void BuildPlayer()
     {
         _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity);
-        var playerStats = _player.GetComponent<PlayerStats>();
-        playerUI.AttachPlayer(playerStats);
+        var playerStats = _player.GetComponent<Stats>();
+        playerUI.Attach(playerStats);
+    }
+
+    private void BuildEnemy()
+    {
+        Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity);
+        var playerStats = _player.GetComponent<Stats>();
+        enemyUI.Attach(playerStats);
     }
 
     private void PlaceCamera()
     {
         Camera mainCamera = Camera.main;
-        CameraController camController = mainCamera.GetComponent<CameraController>();
-        camController.player = _player;
+        CameraController camController = mainCamera.gameObject.GetComponent<CameraController>();
+        camController.Player = _player.transform;
     }
 }
