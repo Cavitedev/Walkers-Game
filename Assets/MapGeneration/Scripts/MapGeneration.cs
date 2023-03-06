@@ -7,13 +7,20 @@ public class MapGeneration : MonoBehaviour
 
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject floorPrefab;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private MapGenerationSettings mapSettings;
+    [SerializeField] private PlayerUI playerUI;
+    
+
+    private GameObject _player;
     
     
     private void Start()
     {
         BuildMap();
 
+        BuildPlayer();
+        
         PlaceCamera();
     }
 
@@ -63,12 +70,18 @@ public class MapGeneration : MonoBehaviour
         wall4.transform.localScale = new Vector3(mapSettings.width, mapSettings.wallHeight, mapSettings.wallWidth);
         wall4.name = "Wall4";
     }
+    
+    private void BuildPlayer()
+    {
+        _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity);
+        var playerStats = _player.GetComponent<PlayerStats>();
+        playerUI.AttachPlayer(playerStats);
+    }
 
     private void PlaceCamera()
     {
         Camera mainCamera = Camera.main;
-        mainCamera.transform.position = new Vector3(0, mapSettings.width / 2 + 2f, -mapSettings.length / 2);
-        mainCamera.transform.rotation =
-            Quaternion.LookRotation(new Vector3(0,0, -2) - mainCamera.transform.position, Vector3.up);
+        CameraController camController = mainCamera.GetComponent<CameraController>();
+        camController.player = _player;
     }
 }
