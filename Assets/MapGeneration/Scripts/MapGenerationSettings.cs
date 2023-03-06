@@ -9,5 +9,6 @@
         public float length = 20f;
         public float wallHeight = 2f;
         public float wallWidth = 0.5f;
+        public int profitObjects = 5;
 
     }

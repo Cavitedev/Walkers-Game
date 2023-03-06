@@ -74,7 +74,8 @@ public class Stats : MonoBehaviour
     {
         if (other.gameObject.CompareTag ("Profit Object"))
         {
-            other.transform.position = new Vector3(Random.Range(-9.0f, 9.0f), 0.5f, Random.Range(-9.0f, 9.0f));
+            var respawnProfit = other.GetComponent<RespawnProfit>();
+            respawnProfit.Pick();
             Count = Count + 1;
         }
     }

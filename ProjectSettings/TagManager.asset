@@ -7,6 +7,7 @@ TagManager:
   - Profit Object
   - Ally Minion
   - Enemy Minion
+  - Pick Up
   layers:
   - Default
   - TransparentFX

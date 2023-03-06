@@ -5,14 +5,17 @@ using UnityEngine.Serialization;
 
 public class MapGeneration : MonoBehaviour
 {
+    [SerializeField] private MapGenerationSettings mapSettings;
 
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject floorPrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private MapGenerationSettings mapSettings;
     [SerializeField] private TeamUI playerUI;
     [SerializeField] private TeamUI enemyUI;
+
+    [SerializeField] private ProfitSpawner profitSpawner;
+    
     
 
     private GameObject _player;
@@ -20,30 +23,32 @@ public class MapGeneration : MonoBehaviour
     
     private void Start()
     {
-        BuildMap();
+        SpawnMap();
 
-        BuildPlayer();
+        SpawnPlayer();
         
-        BuildEnemy();
+        SpawnEnemy();
+
+        SpawnProfitObjects();
         
         PlaceCamera();
     }
 
-    private void BuildMap()
+    private void SpawnMap()
     {
-        BuildFloor();
+        SpawnFloor();
 
-        BuildWalls();
+        SpawnWalls();
     }
 
-    private void BuildFloor()
+    private void SpawnFloor()
     {
         GameObject floor = Instantiate(floorPrefab, Vector3.zero, Quaternion.identity, transform);
         floor.transform.localScale = new Vector3(mapSettings.width / 10, 1f, mapSettings.length / 10);
         floor.name = "Floor";
     }
 
-    private void BuildWalls()
+    private void SpawnWalls()
     {
         GameObject emptyGo = new GameObject();
         GameObject wallsContainer = Instantiate(emptyGo, transform);
@@ -76,18 +81,27 @@ public class MapGeneration : MonoBehaviour
         wall4.name = "Wall4";
     }
     
-    private void BuildPlayer()
+    private void SpawnPlayer()
     {
         _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity);
         var playerStats = _player.GetComponent<Stats>();
         playerUI.Attach(playerStats);
     }
 
-    private void BuildEnemy()
+    private void SpawnEnemy()
     {
         Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity);
         var playerStats = _player.GetComponent<Stats>();
         enemyUI.Attach(playerStats);
+    }
+
+    private void SpawnProfitObjects()
+    {
+        profitSpawner.SetMap( mapSettings);
+        for (int i = 0; i < mapSettings.profitObjects; i++)
+        {
+            profitSpawner.SpawnObject();
+        }
     }
 
     private void PlaceCamera()
