@@ -9,8 +9,13 @@ public class MapGeneration : MonoBehaviour
 
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject floorPrefab;
+    [SerializeField] private Transform playerParent;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject playerMinionPrefab;
+    [SerializeField] private Transform enemyParent;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyMinionPrefab;
+    
     [SerializeField] private TeamUI playerUI;
     [SerializeField] private TeamUI enemyUI;
 
@@ -26,11 +31,15 @@ public class MapGeneration : MonoBehaviour
         SpawnMap();
 
         SpawnPlayer();
+
+        SpawnPlayerMinions();
         
         SpawnEnemy();
 
-        SpawnProfitObjects();
+        SpawnEnemyMinions();
         
+        SpawnProfitObjects();
+
         PlaceCamera();
     }
 
@@ -83,21 +92,48 @@ public class MapGeneration : MonoBehaviour
     
     private void SpawnPlayer()
     {
-        _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity);
+        _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, playerParent);
         var playerStats = _player.GetComponent<Stats>();
         playerUI.Attach(playerStats);
     }
 
+    private void SpawnPlayerMinions()
+    {
+
+        GameObject parent = Instantiate(new GameObject(), playerParent);
+        parent.name = "Ally Minions";
+        for (int i = 0; i < mapSettings.playerMinions; i++)
+        {
+            GameObject minion = Instantiate(playerMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
+                parent.transform);
+            minion.name = $"Minion {i}";
+        }
+    }
+    
     private void SpawnEnemy()
     {
         Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity);
         var playerStats = _player.GetComponent<Stats>();
         enemyUI.Attach(playerStats);
     }
+    
+    private void SpawnEnemyMinions()
+    {
+
+        GameObject parent = Instantiate(new GameObject(), enemyParent);
+        parent.name = "Enemy Minions";
+        for (int i = 0; i < mapSettings.playerMinions; i++)
+        {
+            GameObject minion = Instantiate(enemyMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
+                parent.transform);
+            minion.name = $"Minion {i}";
+        }
+    }
+
 
     private void SpawnProfitObjects()
     {
-        profitSpawner.SetMap( mapSettings);
+        profitSpawner.MapGenerationSettings =  mapSettings;
         for (int i = 0; i < mapSettings.profitObjects; i++)
         {
             profitSpawner.SpawnObject();
