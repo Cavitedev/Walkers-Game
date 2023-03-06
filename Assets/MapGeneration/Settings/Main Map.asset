@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Main Map
   m_EditorClassIdentifier: 
   width: 20
-  length: 15
-  wallHeight: 2
+  length: 20
+  wallHeight: 5
   wallWidth: 0.5

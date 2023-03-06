@@ -27,7 +27,7 @@ public class MapGeneration : MonoBehaviour
     private void BuildFloor()
     {
         GameObject floor = Instantiate(floorPrefab, Vector3.zero, Quaternion.identity, transform);
-        floor.transform.localScale = new Vector3(mapSettings.width, 1f, mapSettings.length);
+        floor.transform.localScale = new Vector3(mapSettings.width / 10, 1f, mapSettings.length / 10);
         floor.name = "Floor";
     }
 
@@ -37,18 +37,18 @@ public class MapGeneration : MonoBehaviour
         GameObject wallsContainer = Instantiate(emptyGo, transform);
         wallsContainer.name = "Walls";
 
-        float wallYPos = mapSettings.wallHeight / 2 + 0.5f;
+        float wallYPos = 0;
 
         GameObject wall1 = Instantiate(wallPrefab,
             new Vector3((mapSettings.width + mapSettings.wallWidth) / 2, wallYPos, 0), Quaternion.identity,
             wallsContainer.transform);
-        wall1.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length);
+        wall1.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length + mapSettings.wallWidth * 2);
         wall1.name = "Wall1";
 
         GameObject wall2 = Instantiate(wallPrefab,
             new Vector3(-(mapSettings.width + mapSettings.wallWidth) / 2, wallYPos, 0), Quaternion.identity,
             wallsContainer.transform);
-        wall2.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length);
+        wall2.transform.localScale = new Vector3(mapSettings.wallWidth, mapSettings.wallHeight, mapSettings.length + mapSettings.wallWidth * 2);
         wall2.name = "Wall2";
 
         GameObject wall3 = Instantiate(wallPrefab,
