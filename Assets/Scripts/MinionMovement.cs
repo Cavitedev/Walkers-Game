@@ -15,7 +15,8 @@ public class MinionMovement : MonoBehaviour {
     {
         initial = Time.time;
         time = initial;
-        GetComponent<Rigidbody>().AddForce(Random.Range(-rango,rango),0,Random.Range(-rango,rango));
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(Random.Range(-rango,rango),0,Random.Range(-rango,rango));
         //transform.position = new Vector3(0f,0.5f,2f);
     }
 
@@ -28,7 +29,7 @@ public class MinionMovement : MonoBehaviour {
             initial = Time.time;
             time = initial;
             Vector3 movement = new Vector3 (Random.Range(-rango,rango),0,Random.Range(-rango,rango));
-            GetComponent<Rigidbody>().AddForce(movement * speed);
+            rb.AddForce(movement * speed);
         }
     }
 }
