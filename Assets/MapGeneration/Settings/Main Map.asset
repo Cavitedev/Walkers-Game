@@ -16,3 +16,6 @@ MonoBehaviour:
   length: 20
   wallHeight: 5
   wallWidth: 0.5
+  profitObjects: 5
+  playerMinions: 3
+  enemyMinions: 3

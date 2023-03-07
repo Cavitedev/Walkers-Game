@@ -24,8 +24,7 @@ public class MapGeneration : MonoBehaviour
     
 
     private GameObject _player;
-    
-    
+
     private void Start()
     {
         SpawnMap();
@@ -59,8 +58,9 @@ public class MapGeneration : MonoBehaviour
 
     private void SpawnWalls()
     {
-        GameObject emptyGo = new GameObject();
-        GameObject wallsContainer = Instantiate(emptyGo, transform);
+        GameObject wallsContainer = new GameObject();
+        // GameObject wallsContainer = Instantiate(emptyGo, transform);
+        wallsContainer.transform.parent = transform;
         wallsContainer.name = "Walls";
 
         float wallYPos = 0;
@@ -93,14 +93,15 @@ public class MapGeneration : MonoBehaviour
     private void SpawnPlayer()
     {
         _player = Instantiate(playerPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, playerParent);
-        var playerStats = _player.GetComponent<Stats>();
-        playerUI.Attach(playerStats);
+        var stats = _player.GetComponent<Stats>();
+        playerUI.Attach(stats);
     }
 
     private void SpawnPlayerMinions()
     {
 
-        GameObject parent = Instantiate(new GameObject(), playerParent);
+        GameObject parent = new GameObject();
+        parent.transform.parent = playerParent;
         parent.name = "Ally Minions";
         for (int i = 0; i < mapSettings.playerMinions; i++)
         {
@@ -112,15 +113,16 @@ public class MapGeneration : MonoBehaviour
     
     private void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity);
-        var playerStats = _player.GetComponent<Stats>();
-        enemyUI.Attach(playerStats);
+        GameObject enemy = Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity, enemyParent);
+        var stats = enemy.GetComponent<Stats>();
+        enemyUI.Attach(stats);
     }
     
     private void SpawnEnemyMinions()
     {
 
-        GameObject parent = Instantiate(new GameObject(), enemyParent);
+        GameObject parent = new GameObject();
+        parent.transform.parent = enemyParent;
         parent.name = "Enemy Minions";
         for (int i = 0; i < mapSettings.playerMinions; i++)
         {
