@@ -24,6 +24,9 @@ public class MapGeneration : MonoBehaviour
     
 
     private GameObject _player;
+    private GameObject enemy;
+
+    private float minionDistanceToPlayer = 2f;
 
     private void Start()
     {
@@ -31,9 +34,9 @@ public class MapGeneration : MonoBehaviour
 
         SpawnPlayer();
 
-        SpawnPlayerMinions();
-        
         SpawnEnemy();
+
+        SpawnPlayerMinions();
 
         SpawnEnemyMinions();
         
@@ -97,6 +100,13 @@ public class MapGeneration : MonoBehaviour
         playerUI.Attach(stats);
     }
 
+    private void SpawnEnemy()
+    {
+        enemy = Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity, enemyParent);
+        var stats = enemy.GetComponent<Stats>();
+        enemyUI.Attach(stats);
+    }
+
     private void SpawnPlayerMinions()
     {
 
@@ -105,17 +115,12 @@ public class MapGeneration : MonoBehaviour
         parent.name = "Ally Minions";
         for (int i = 0; i < mapSettings.playerMinions; i++)
         {
-            GameObject minion = Instantiate(playerMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
-                parent.transform);
+            // GameObject minion = Instantiate(playerMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
+            //     parent.transform);
+            GameObject minion = Instantiate(playerMinionPrefab, mapSettings.GetMinionSpawnPoint(enemy.transform.position, minionDistanceToPlayer),
+                Quaternion.identity, parent.transform);
             minion.name = $"Minion {i}";
         }
-    }
-    
-    private void SpawnEnemy()
-    {
-        GameObject enemy = Instantiate(enemyPrefab, new Vector3(3, 0.5f, -5), Quaternion.identity, enemyParent);
-        var stats = enemy.GetComponent<Stats>();
-        enemyUI.Attach(stats);
     }
     
     private void SpawnEnemyMinions()
@@ -128,8 +133,8 @@ public class MapGeneration : MonoBehaviour
         {
             // GameObject minion = Instantiate(enemyMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
             //     parent.transform);
-            GameObject minion = Instantiate(enemyMinionPrefab, mapSettings.GetMinionSpawnPoint(_player.transform.position, 1), Quaternion.identity,
-                parent.transform);
+            GameObject minion = Instantiate(enemyMinionPrefab, mapSettings.GetMinionSpawnPoint(_player.transform.position, minionDistanceToPlayer),
+                Quaternion.identity, parent.transform);
             minion.name = $"Minion {i}";
         }
     }
