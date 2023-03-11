@@ -20,4 +20,35 @@ public class MapGenerationSettings : ScriptableObject
         return new Vector3(Random.Range(-minWidthSpawn(), minWidthSpawn()), 0.5f,
             Random.Range(-minLengthSpawn(), minLengthSpawn()));
     }
+
+    public Vector3 GetMinionSpawnPoint(Vector3 centralPoint, float distance)
+    {
+        switch (Random.Range(1,4))
+        {
+            case 1:
+                return new Vector3(Random.Range(-minWidthSpawn(), centralPoint.x - distance),
+                    0.5f, Random.Range(-minLengthSpawn(), minLengthSpawn()));
+            case 2:
+                return new Vector3(Random.Range(centralPoint.x + distance, minWidthSpawn()),
+                    0.5f, Random.Range(-minLengthSpawn(), minLengthSpawn()));
+            case 3:
+                return new Vector3(Random.Range(-minWidthSpawn(), minWidthSpawn()),
+                    0.5f, Random.Range(centralPoint.z + distance, minLengthSpawn()));
+            case 4:
+                return new Vector3(Random.Range(-minWidthSpawn(), minWidthSpawn()),
+                    0.5f, Random.Range(-minLengthSpawn(), centralPoint.z - distance));
+            default:
+                return new Vector3(0, 0, 0);
+        }
+
+        // Vector3 v = centralPoint;
+
+        // while ((v.x > centralPoint.x - distance) && (v.x < centralPoint.x + distance) &&
+        //     (v.z > centralPoint.z - distance) && (v.z < centralPoint.z + distance))
+        // {
+        //     v = RandomPosition();
+        // }
+
+        // return v;
+    }
 }
