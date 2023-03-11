@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7453655263987993660}
   m_Layer: 0
   m_Name: Allly Minion
-  m_TagString: Minion Aliado
+  m_TagString: Ally Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,5 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0a2e6917953ce4cb86f453bfca2b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rango: 1
+  range: 1
   speed: 20

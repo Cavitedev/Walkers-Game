@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7453655263987993662, guid: 5c22bfebd13a7374fab5bc416a256695, type: 3}
       propertyPath: m_TagString
-      value: Minion Enemigo
+      value: Enemy Minion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c22bfebd13a7374fab5bc416a256695, type: 3}
