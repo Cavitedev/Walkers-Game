@@ -3,7 +3,19 @@ guid: 783b27be8f170d344b58eef5b0cbfc5b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mapSettings: {instanceID: 0}
+  - wallPrefab: {fileID: 3697245174297101732, guid: b46f3907ded76044eae261a6a19ccda5, type: 3}
+  - floorPrefab: {fileID: 3737752779355227325, guid: a96544c221f31354a846f940c36f8fc2, type: 3}
+  - playerParent: {instanceID: 0}
+  - playerPrefab: {fileID: 8468906645455609551, guid: ae2195c264c7b184d9ead767a4059926, type: 3}
+  - playerMinionPrefab: {fileID: 7453655263987993662, guid: 5c22bfebd13a7374fab5bc416a256695, type: 3}
+  - enemyParent: {instanceID: 0}
+  - enemyPrefab: {fileID: 1766863980853576802, guid: 2797a4555560754498c35800300b413d, type: 3}
+  - enemyMinionPrefab: {fileID: 6160050521182814988, guid: 55256eb47b257f64f98447db1414f9fe, type: 3}
+  - playerUI: {instanceID: 0}
+  - enemyUI: {instanceID: 0}
+  - profitSpawner: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

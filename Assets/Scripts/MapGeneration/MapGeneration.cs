@@ -124,7 +124,7 @@ public class MapGeneration : MonoBehaviour
         GameObject parent = new GameObject();
         parent.transform.parent = enemyParent;
         parent.name = "Enemy Minions";
-        for (int i = 0; i < mapSettings.playerMinions; i++)
+        for (int i = 0; i < mapSettings.enemyMinions; i++)
         {
             GameObject minion = Instantiate(enemyMinionPrefab, mapSettings.RandomPosition(), Quaternion.identity,
                 parent.transform);
