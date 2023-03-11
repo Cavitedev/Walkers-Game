@@ -1,27 +1,20 @@
-﻿
+﻿using UnityEngine;
 
-    using UnityEngine;
-    using UnityEngine.Serialization;
+public class ProfitSpawner : MonoBehaviour
+{
+    [SerializeField] private GameObject profitObjectPrefab;
+    public MapGenerationSettings MapGenerationSettings { get; set; }
 
-    public class ProfitSpawner : MonoBehaviour
+    public void SpawnObject()
     {
-
-         [SerializeField] private GameObject profitObjectPrefab;
-         public MapGenerationSettings MapGenerationSettings { get; set; }
-         
-        public void SpawnObject()
-        {
-            GameObject profitObject = Instantiate(profitObjectPrefab, MapGenerationSettings.RandomPosition(), Quaternion.identity, transform);
-            var respawnProfit = profitObject.GetComponent<RespawnProfit>();
-            respawnProfit.ProfitSpawner = this;
-        }
-
-        public void MoveProfitObject(Transform profitObject)
-        {
-            profitObject.position = MapGenerationSettings.RandomPosition();
-        }
-
-
-        
-
+        GameObject profitObject = Instantiate(profitObjectPrefab, MapGenerationSettings.RandomPosition(),
+            Quaternion.identity, transform);
+        var respawnProfit = profitObject.GetComponent<RespawnProfit>();
+        respawnProfit.ProfitSpawner = this;
     }
+
+    public void MoveProfitObject(Transform profitObject)
+    {
+        profitObject.position = MapGenerationSettings.RandomPosition();
+    }
+}
