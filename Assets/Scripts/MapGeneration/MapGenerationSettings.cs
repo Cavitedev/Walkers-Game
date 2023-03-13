@@ -5,6 +5,7 @@ public class MapGenerationSettings : ScriptableObject
 {
     public float width = 10f;
     public float length = 20f;
+    public float minionDistanceToPlayer = 2f;
     public float wallHeight = 2f;
     public float wallWidth = 0.5f;
     public int profitObjects = 5;
@@ -21,9 +22,16 @@ public class MapGenerationSettings : ScriptableObject
             Random.Range(-minLengthSpawn(), minLengthSpawn()));
     }
 
+    public Vector3 GetMinionSpawnPoint(Vector3 centralPoint)
+    {
+        return GetMinionSpawnPoint(centralPoint, minionDistanceToPlayer);
+    }
+
     public Vector3 GetMinionSpawnPoint(Vector3 centralPoint, float distance)
     {
-        switch (Random.Range(1,4))
+        Debug.Log(Random.Range(11, 8));
+
+        switch (Random.Range(1, 5))
         {
             case 1:
                 return new Vector3(Random.Range(-minWidthSpawn(), centralPoint.x - distance),
